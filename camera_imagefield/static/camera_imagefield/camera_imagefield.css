@@ -1,0 +1,85 @@
+div.camera-imagefield {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-width: 640px;
+    min-height: 480px;
+    background-color: #eee;
+    position: relative;
+
+}
+
+div.camera-imagefield img.captured-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+div.camera-imagefield div.buttons {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+
+}
+
+div.camera-imagefield button {
+    font-size: 2em;
+    appearance: none;
+    box-shadow: none;
+    width: 3em;
+    height: 3em;
+    margin: 3px;
+}
+
+div.camera-imagefield video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+div.camera-imagefield .cancel-capture {
+    position: absolute;
+    right: 0.2em;
+    top: 0.2em;
+    display: block;
+    font-size: 2em;
+    color: white;
+    text-shadow: black 2px 2px 2px;
+    cursor: hand;
+}
+
+
+div.camera-imagefield .do-capture {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0.2em;
+    display: block;
+    font-size: 2.5em;
+    color: white;
+    text-shadow: black 2px 2px 2px;
+    cursor: hand;
+}
+
+div.camera-imagefield .do-capture-delay {
+    position: absolute;
+    left: 70%;
+    transform: translateX(-50%);
+    bottom: 0.2em;
+    display: block;
+    font-size: 2em;
+    color: white;
+    text-shadow: black 2px 2px 2px;
+    cursor: hand;
+}
+
+div.camera-imagefield .cancel-capture:hover {
+    color: darkred;
+}
