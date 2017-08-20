@@ -1,0 +1,2 @@
+recursive-include camera_imagefield/static *
+include requirements.txt
