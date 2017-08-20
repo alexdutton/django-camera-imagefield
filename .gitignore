@@ -1,0 +1,5 @@
+*.pyc
+__pycache__
+/.idea
+/dist
+/django_camera_imagefield.egg-info
