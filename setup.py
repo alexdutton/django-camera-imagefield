@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-camera-imagefield',
-    version='0.1',
+    version='0.1.1',
     description="A Django widget for using a device's camera to get an image to upload",
     author='Alexander Dutton',
     author_email='code@alexdutton.co.uk',
