@@ -3,17 +3,20 @@ import mimetypes
 import hashlib
 
 import io
+import math
 
 from datauri import DataURI
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.forms.widgets import ClearableFileInput, HiddenInput, FileInput
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
+from PIL import Image
 
 __all__ = ['CameraImageWidget']
 
 
 class CameraImageWidget(FileInput):
+
     def use_required_attribute(self, initial):
         return False
 
@@ -37,10 +40,12 @@ class CameraImageWidget(FileInput):
             # file, field_name, name, content_type, size, charset,
             return InMemoryUploadedFile(file=io.BytesIO(file.data),
                                         field_name=name,
-                                        name='{}.{}'.format(hashlib.sha1(file.data).hexdigest(), mimetypes.guess_extension(file.mimetype)),
+                                        name='{}{}'.format(hashlib.sha1(file.data).hexdigest(),
+                                                           mimetypes.guess_extension(file.mimetype)),
                                         content_type=file.mimetype,
                                         size=len(file.data),
                                         charset=file.charset)
+
 
     class Media:
         css = {
