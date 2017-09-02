@@ -1,3 +1,4 @@
+import binascii
 import mimetypes
 
 import hashlib
@@ -33,7 +34,7 @@ class CameraImageWidget(FileInput):
         elif '{}_data'.format(name) in data:
             try:
                 file = DataURI(data['{}_data'.format(name)])
-            except ValueError:
+            except (ValueError, TypeError, binascii.Error):
                 return None
             # file, field_name, name, content_type, size, charset,
             return InMemoryUploadedFile(file=io.BytesIO(file.data),
