@@ -1,3 +1,5 @@
+from __future__ import division
+
 import math
 from fractions import Fraction
 import io
