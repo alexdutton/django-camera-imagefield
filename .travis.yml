@@ -4,11 +4,15 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
+env:
+  - DJANGO_VERSION=">=1.8,<1.9"
+  - DJANGO_VERSION=">=1.9,<1.10"
+  - DJANGO_VERSION=">=1.10,<1.11"
+  - DJANGO_VERSION=">=1.11,<1.12"
 install:
+  - pip install Django==$DJANGO_VERSION
   - pip install -r requirements.txt
   - pip install codecov selenium
-env:
-  - DJANGO_SETTINGS_MODULE=camera_imagefield.tests.settings DJANGO_ALLOWED_HOSTS=localhost
-script: PYTHONPATH=. coverage run --source=. `which django-admin.py` test
+script: PYTHONPATH=. DJANGO_SETTINGS_MODULE=camera_imagefield.tests.settings coverage run --source=. `which django-admin.py` test
 after_success:
   - codecov
