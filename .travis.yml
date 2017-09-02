@@ -10,7 +10,7 @@ env:
   - DJANGO_VERSION=">=1.10,<1.11"
   - DJANGO_VERSION=">=1.11,<1.12"
 install:
-  - pip install Django==$DJANGO_VERSION
+  - pip install Django$DJANGO_VERSION
   - pip install -r requirements.txt
   - pip install codecov selenium
 script: PYTHONPATH=. DJANGO_SETTINGS_MODULE=camera_imagefield.tests.settings coverage run --source=. `which django-admin.py` test
