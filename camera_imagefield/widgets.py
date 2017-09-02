@@ -3,14 +3,12 @@ import mimetypes
 import hashlib
 
 import io
-import math
 
 from datauri import DataURI
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.forms.widgets import ClearableFileInput, HiddenInput, FileInput
+from django.forms.widgets import FileInput
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
-from PIL import Image
 
 __all__ = ['CameraImageWidget']
 

@@ -1,5 +1,4 @@
 import io
-import math
 import os.path
 
 from PIL import Image
