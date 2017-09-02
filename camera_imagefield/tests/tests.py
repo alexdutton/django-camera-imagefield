@@ -16,7 +16,6 @@ class CameraImageFieldTestCase(TestCase):
     def setUp(self):
         self.test_image_data = io.BytesIO(pkg_resources.resource_string('camera_imagefield.tests',
                                                                         'data/ada-lovelace-chalon-portrait.jpg'))
-        self.test_image_data.seek(0)
         self.test_image = Image.open(self.test_image_data)
         self.test_image_data.seek(0)
         self.test_image_file = InMemoryUploadedFile(file=self.test_image_data,
@@ -80,3 +79,20 @@ class CameraImageFieldTestCase(TestCase):
 
         # The image we uploaded was square, so this one should be too
         self.assertEqual((100, 150), new_image.size)
+
+    def testPreferJPEGRemoveAlpha(self):
+        image = Image.new('RGBA', (100, 100), (255, 0, 0, 128))
+        image_data = io.BytesIO()
+        image.save(image_data, 'PNG')
+        image_data.seek(0)
+        image_file = InMemoryUploadedFile(file=image_data,
+                                                    field_name='file',
+                                                    name='file.jpg',
+                                                    content_type='image/png',
+                                                    size=len(image_data.getvalue()),
+                                                    charset=None)
+        field = CameraImageField(prefer_jpeg=True)
+        new_file = field.to_python(image_file)
+        new_image = Image.open(new_file)
+        self.assertEqual((255, 127, 126), new_image.getpixel((15, 5)))
+
