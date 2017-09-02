@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
         field.appendChild(dataInput);
 
         var buttonsDiv = document.createElement("div");
-        buttonsDiv.classList.add('buttons');
+        buttonsDiv.classList.add("buttons");
 
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             var cameraButton = document.createElement("button");
