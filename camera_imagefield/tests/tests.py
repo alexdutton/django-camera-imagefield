@@ -1,6 +1,8 @@
-from __future__ import division
+from __future__ import division, unicode_literals
 
 import math
+
+import datauri
 from fractions import Fraction
 import io
 import pkg_resources
@@ -96,3 +98,24 @@ class CameraImageFieldTestCase(TestCase):
         new_image = Image.open(new_file)
         self.assertEqual((255, 127, 126), new_image.getpixel((15, 5)))
 
+
+class CameraImageWidgetTestCase(TestCase):
+    def setUp(self):
+        self.widget = CameraImageWidget()
+
+    def test_value_from_datadict_file(self):
+        file = InMemoryUploadedFile(io.BytesIO('foo'.encode()), 'file_one', 'file.txt', 'text/plain', 3, None)
+        self.assertEqual(file, self.widget.value_from_datadict({}, {'file_one': file}, 'file_one'))
+
+    def test_value_from_datadict_data(self):
+        file_data = datauri.DataURI.make(mimetype='image/png', charset=None, base64=True, data='hello')
+        file = self.widget.value_from_datadict({'file_one_data': file_data}, {}, 'file_one')
+        self.assertEqual('hello'.encode(), file.read())
+        self.assertEqual('image/png', file.content_type)
+
+    def test_render(self):
+        rendered = self.widget.render('fieldname', None, {})
+        self.assertTrue('fieldname' in rendered)
+
+    def test_use_required_attribute(self):
+        self.assertFalse(self.widget.use_required_attribute(None))
