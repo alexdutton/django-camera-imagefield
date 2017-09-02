@@ -21,7 +21,7 @@ class CameraImageWidget(FileInput):
         return False
 
     def render(self, name, value, attrs=None):
-        field = super().render(name, value, attrs)
+        field = super(CameraImageWidget, self).render(name, value, attrs)
         return mark_safe("""<div class="camera-imagefield" data-name={}>{}</div>""".format(escape(name), field))
 
 

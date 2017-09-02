@@ -26,7 +26,7 @@ class CameraImageField(forms.ImageField):
         self.max_size = kwargs.pop('max_size', None)
         self.prefer_jpeg = kwargs.pop('prefer_jpeg', False)
 
-        super().__init__(*args, **kwargs)
+        super(CameraImageField, self).__init__(*args, **kwargs)
 
     def to_python(self, data):
         file = super(CameraImageField, self).to_python(data)
