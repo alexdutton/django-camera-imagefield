@@ -12,47 +12,36 @@ document.addEventListener("DOMContentLoaded", function() {
             };
 
             function handleSuccess(stream) {
-                function close() {
-                    field.removeChild(video);
-                    field.removeChild(cancelButton);
-                    field.removeChild(captureButton);
-                    field.removeChild(captureDelayButton);
-                    var tracks = stream.getTracks();
-                    for (var i = 0; i < tracks.length; i++) tracks[i].stop();
-                    stream = null;
-
-                }
 
                 video.src = window.URL.createObjectURL(stream);
 
                 var cancelButton = document.createElement("i");
-                cancelButton.classList.add("fa");
-                cancelButton.classList.add("fa-times");
-                cancelButton.classList.add("cancel-capture");
+                cancelButton.setAttribute("class", "fa fa-times cancel-capture");
                 cancelButton.setAttribute("role", "button");
                 cancelButton.title = "Cancel";
                 field.appendChild(cancelButton);
 
                 var captureButton = document.createElement("i");
-                captureButton.classList.add("fa");
-                captureButton.classList.add("fa-camera");
-                captureButton.classList.add("do-capture");
+                captureButton.setAttribute("class", "fa fa-camera do-capture");
                 captureButton.setAttribute("role", "button");
                 captureButton.title = "Take photo";
                 field.appendChild(captureButton);
 
                 var captureDelayButton = document.createElement("i");
-                captureDelayButton.classList.add("fa");
-                captureDelayButton.classList.add("fa-history");
-                captureDelayButton.classList.add("do-capture-delay");
+                captureDelayButton.setAttribute("class", "fa fa-history do-capture-delay");
                 captureDelayButton.setAttribute("role", "button");
                 captureDelayButton.title = "Take photo after 3 second delay";
                 field.appendChild(captureDelayButton);
 
-
-
                 cancelButton.addEventListener("click", function() {
-                    close();
+                    field.removeChild(video);
+                    field.removeChild(cancelButton);
+                    field.removeChild(captureButton);
+                    field.removeChild(captureDelayButton);
+                    stream.getTracks().forEach(function(track) {
+                        track.stop();
+                    });
+                    stream = null;
                 });
 
                 captureButton.addEventListener("click", function() {
@@ -68,17 +57,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     canvas.style.display = "none";
                     field.appendChild(canvas);
 
-                    var context = canvas.getContext('2d');
+                    var context = canvas.getContext("2d");
                     context.drawImage(video, 0, 0, width, height);
                     dataInput.value = img.src = canvas.toDataURL("image/png");
-                    console.log(dataInput.value.length);
                     close();
-                })
+                });
             }
 
             function handleError(error) {
                 field.removeChild(video);
-                console.log("denied");
             }
 
             navigator.mediaDevices.getUserMedia(constraints).
@@ -88,13 +75,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         field.addEventListener("drop", function(ev) {
             ev.preventDefault();
-            console.log("dropped", arguments);
         });
         field.querySelector("input").style.display = "none";
 
         var dataInput = document.createElement("input");
         dataInput.type = "hidden";
-        dataInput.name = field.getAttribute("data-name") + '_data';
+        dataInput.name = field.getAttribute("data-name") + "_data";
         field.appendChild(dataInput);
 
         var buttonsDiv = document.createElement("div");
@@ -114,9 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var uploadButton = document.createElement("button");
         var uploadButtonI = document.createElement("i");
         uploadButtonI.textContent = " ";
-        uploadButtonI.classList.add("fa");
-        uploadButtonI.classList.add("fa-fw");
-        uploadButtonI.classList.add("fa-upload");
+        uploadButtonI.setAttribute("class", "fa fa-fw fa-upload");
         uploadButton.appendChild(uploadButtonI);
         buttonsDiv.appendChild(uploadButton);
         uploadButton.addEventListener("click", function(ev) { field.querySelector("input").click(ev); ev.preventDefault(); });
