@@ -1,6 +1,6 @@
 # django-camera-imagefield
 
-[![PyPI](https://img.shields.io/pypi/v/nine.svg)](https://pypi.python.org/pypi/django-camera-imagefield)
+[![PyPI](https://img.shields.io/pypi/v/django-camera-imagefield.svg)](https://pypi.python.org/pypi/django-camera-imagefield)
 
 Django field and widget implementations that:
 
