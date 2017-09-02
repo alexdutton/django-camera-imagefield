@@ -113,6 +113,11 @@ class CameraImageWidgetTestCase(TestCase):
         self.assertEqual('hello'.encode(), file.read())
         self.assertEqual('image/png', file.content_type)
 
+    def test_value_from_datadict_data_broken(self):
+        file_data = datauri.DataURI.make(mimetype='image/png', charset=None, base64=True, data='hello')
+        file_data = file_data[:-4] + file_data[-3:]
+        self.assertEqual(None, self.widget.value_from_datadict({'file_one_data': file_data}, {}, 'file_one'))
+
     def test_render(self):
         rendered = self.widget.render('fieldname', None, {})
         self.assertTrue('fieldname' in rendered)
