@@ -19,7 +19,7 @@ class CameraImageWidget(FileInput):
     def use_required_attribute(self, initial):
         return False
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         field = super(CameraImageWidget, self).render(name, value, attrs)
         return mark_safe("""<div class="camera-imagefield" data-name={}>{}</div>""".format(escape(name), field))
 
